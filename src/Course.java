@@ -4,13 +4,14 @@ public class Course {
     private String code;
     private String title;
     private int maxCapacity;
-    private ArrayList<String> enrolledStudents;
+    private ArrayList<StudentIFace> enrolledStudents;
 
 
     public Course(String code, String title, int maxCapacity) {
         this.code = code;
         this.title = title;
         this.maxCapacity = maxCapacity;
+        this.enrolledStudents = new ArrayList<StudentIFace>();
     }
 
     public String getCode() {
@@ -26,7 +27,7 @@ public class Course {
     }
 
     public ArrayList<String> getEnrolledStudents(){
-        return enrolledStudents;
+        return getEnrolledStudents();
     }
 
     public String toString(){

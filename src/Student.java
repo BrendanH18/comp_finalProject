@@ -8,7 +8,6 @@ public class Student implements StudentIFace{
     public Student(String id,String name){
         this.id=id;
         this.name=name;
-        this.enrolledCourses=new ArrayList<Course>();
     }
 
     @Override
@@ -20,6 +19,7 @@ public class Student implements StudentIFace{
     public String getName() {
         return this.name;
     }
+
 
     public String toString(){
         return this.id + "::" + this.name;
