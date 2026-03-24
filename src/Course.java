@@ -11,7 +11,6 @@ public class Course {
         this.code = code;
         this.title = title;
         this.maxCapacity = maxCapacity;
-        this.enrolledStudents = new ArrayList<StudentIFace>();
     }
 
     public String getCode() {
