@@ -60,7 +60,7 @@ public class RegistrationSystem {
         System.out.println("Please enter the maximum number of students for the course: ");
         newMax = add.nextLine();
 
-        Course newCourse = new Course(newName, newCode, Integer.parseInt(newMax));
+        Course newCourse = new Course(newCode, newName, Integer.parseInt(newMax));
 
         this.courses.add(newCourse);
         System.out.println(this.courses.size());
