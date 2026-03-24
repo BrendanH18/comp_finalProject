@@ -11,6 +11,7 @@ public class Course {
         this.code = code;
         this.title = title;
         this.maxCapacity = maxCapacity;
+        this.enrolledStudents = new ArrayList<StudentIFace>();
     }
 
     public String getCode() {
@@ -25,8 +26,8 @@ public class Course {
         return maxCapacity;
     }
 
-    public ArrayList<String> getEnrolledStudents(){
-        return getEnrolledStudents();
+    public ArrayList<StudentIFace> getEnrolledStudents(){
+        return this.enrolledStudents;
     }
 
     public String toString(){

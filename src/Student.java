@@ -21,6 +21,11 @@ public class Student implements StudentIFace{
         return this.name;
     }
 
+    @Override
+    public ArrayList<Course> getEnrolledCourses() {
+        return this.enrolledCourses;
+    }
+
 
     public String toString(){
         return this.id + "::" + this.name;

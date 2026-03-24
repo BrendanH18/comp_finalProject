@@ -34,14 +34,13 @@ public class RegistrationSystem {
         String newName;
         String newID;
 
-
         System.out.println("Please enter the name of the student you want to add: ");
         newName = add.nextLine();
 
         System.out.println("Please enter the ID of the student you want to add: ");
         newID = add.nextLine();
 
-        Student newStudent = new Student(newName, newID);
+        Student newStudent = new Student(newID, newName);
 
         this.students.add(newStudent);
         System.out.println(this.students.size());
