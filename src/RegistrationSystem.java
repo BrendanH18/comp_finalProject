@@ -43,7 +43,6 @@ public class RegistrationSystem {
         Student newStudent = new Student(newID, newName);
 
         this.students.add(newStudent);
-        System.out.println(this.students.size());
     }
 
     public void addCourse(Scanner add){
@@ -63,7 +62,6 @@ public class RegistrationSystem {
         Course newCourse = new Course(newCode, newName, Integer.parseInt(newMax));
 
         this.courses.add(newCourse);
-        System.out.println(this.courses.size());
     }
 
     private void menu(){
