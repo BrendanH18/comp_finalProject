@@ -26,6 +26,16 @@ public class Student implements StudentIFace{
         return this.enrolledCourses;
     }
 
+    @Override
+    public boolean addCourse(String code) {
+        return false;
+    }
+
+    @Override
+    public boolean dropCourse(String code) {
+        return false;
+    }
+
 
     public String toString(){
         return this.id + "::" + this.name;

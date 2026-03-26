@@ -73,4 +73,24 @@ public class RegistrationSystem {
         System.out.println("6. View Course Roster");
         System.out.println("7. Save and Exit");
     }
+
+    public StudentIFace findStudent(String id){
+
+    }
+
+    public Course findCourse(String code){
+
+    }
+
+    private boolean registerStudent(String id, String code){
+
+    }
+
+    private boolean dropStudent(String id, String code){
+
+    }
+
+    public void saveData(){
+
+    }
 }
