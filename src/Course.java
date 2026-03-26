@@ -31,11 +31,28 @@ public class Course {
     }
 
     public boolean idFull(){
-        return this.enrolledStudents.size() >= this.maxCapacity;
+        if (this.maxCapacity > this.enrolledStudents.size()){
+            return false;
+        }
+        else   {
+            return true;
+        }
     }
 
     public boolean addStudent(String id, RegistrationSystem system){
+        if (this.idFull()){
+            return false;
+        }
 
+        try {
+            StudentIFace studentAdd = system.findStudent(id);
+
+            this.enrolledStudents.add(studentAdd);
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean removeStudent(String id, RegistrationSystem system){
