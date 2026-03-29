@@ -74,16 +74,27 @@ public class RegistrationSystem {
         System.out.println("7. Save and Exit");
     }
 
-    public StudentIFace findStudent(String id){
-
+    public StudentIFace findStudent(String id) throws Exception{
+        for ( int i = 0; i < this.students.size(); i ++ ) {
+            if ( this.students.get(i).getId().equals(id) ) {
+                return this.students.get(i);
+            }
+        }
+        throw new Exception("Could not find student with id: " + id);
     }
 
-    public Course findCourse(String code){
+    public Course findCourse(String code) throws Exception {
+        for ( int i = 0; i < this.courses.size(); i ++ ) {
+            if ( this.courses.get(i).getCode().equals(code) ) {
+                return this.courses.get(i);
+            }
+        }
 
+        throw new Exception("Could not find course with that code: " + code);
     }
 
-    private boolean registerStudent(String id, String code){
-
+    private boolean registerStudent(String id, String code) throws Exception {
+        if (findStudent(id) )
     }
 
     private boolean dropStudent(String id, String code){
