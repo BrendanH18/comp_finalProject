@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,7 +24,7 @@ public class FileManager {
             while (input.hasNextLine()) {
                 String line = input.nextLine();
                 String[] data = line.split(",");
-                Course nextCourse = new Course(data[1], data[0], data[2]);
+                Course nextCourse = new Course(data[1], data[0], Integer.parseInt(data[2]));
                 courselist.add(nextCourse);
             } return  courselist;
         }  catch (FileNotFoundException e) {
@@ -52,11 +53,31 @@ public class FileManager {
     }
 
     public boolean saveCourses(String file, ArrayList<Course> courses){
-        return false;
+        try {
+            PrintWriter writer = new PrintWriter(this.dir + "/" + file);
+            for (Course newCourse : courses) {
+                writer.println(newCourse.getTitle() + "," + newCourse.getCode() + "," + newCourse.getMaxCapacity());
+            }
+            writer.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found");
+            return false;
+        }
     }
 
     public boolean saveStudents(String file, ArrayList<StudentIFace> students){
-        return  false;
+        try {
+            PrintWriter nextWriter = new PrintWriter(this.dir + "/" + file);
+            for (StudentIFace newStudent : students) {
+                nextWriter.println(newStudent.getName() + "," + newStudent.getId());
+            }
+            nextWriter.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found");
+            return false;
+        }
     }
 
 }
