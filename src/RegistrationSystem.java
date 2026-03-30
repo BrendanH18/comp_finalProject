@@ -26,6 +26,15 @@ public class RegistrationSystem {
                 case "2":
                     this.addCourse(input);
                     break;
+                case "3":
+                    this.registerStudentMenu(input);
+                    break;
+                case "4":
+                    this.dropStudentMenu(input);
+                    break;
+                case "7":
+                    saveData();
+                    break;
             }
         }
     }
@@ -63,6 +72,52 @@ public class RegistrationSystem {
 
         this.courses.add(newCourse);
     }
+
+    public void registerStudentMenu(Scanner input){
+        String id;
+        String code;
+
+        System.out.println("Please enter the ID of the student you want to add: ");
+        id = input.nextLine();
+
+        System.out.println("Please enter the code of the course: ");
+        code = input.nextLine();
+
+        boolean result = this.registerStudent(id, code);
+
+        if (result){
+            System.out.println("Student successfully registered!");
+        } else  {
+            System.out.println("Student Registration Failed!");
+        }
+    }
+
+    public void dropStudentMenu(Scanner input){
+        String id;
+        String code;
+
+        System.out.println("Please enter the ID of the student you want to drop: ");
+        id = input.nextLine();
+
+        System.out.println("Please enter the code of the course: ");
+        code = input.nextLine();
+
+        boolean result = this.dropStudent(id, code);
+        if (result){
+            System.out.println("Student successfully dropped!");
+        }  else  {
+            System.out.println("Student Drop Failed!");
+        }
+    }
+
+    /*public void scheduleStudentMenu(Scanner input){
+        String id;
+
+        System.out.println("Please enter the ID of the student you want the schedule for: ");
+        id = input.nextLine();
+
+        findStudent(id);
+    }*/
 
     private void menu(){
         System.out.println("1. Add Student");
@@ -104,7 +159,9 @@ public class RegistrationSystem {
 
             boolean addedToCourse = course.addStudent(id, this);
             if (addedToCourse) {
-                student.addCourse(code);
+                if (student.addCourse(code)){
+                    student.getEnrolledCourses().add(course);
+                }
             }
             return addedToCourse;
         } catch (Exception e){
@@ -117,9 +174,9 @@ public class RegistrationSystem {
             StudentIFace student = findStudent(id);
             Course course = findCourse(code);
 
-            boolean removedFromCourse = course.addStudent(id, this);
+            boolean removedFromCourse = course.removeStudent(id, this);
             if (removedFromCourse) {
-                student.addCourse(code);
+                student.dropCourse(code);
             }
             return removedFromCourse;
         } catch (Exception e) {
@@ -128,6 +185,10 @@ public class RegistrationSystem {
     }
 
     public void saveData(){
-
+        FileManager standardfm = new FileManager("data");
+        standardfm.STUDENTS_FILE = "students.csv";
+        standardfm.COURSES_FILE = "courses.csv";
+        standardfm.saveCourses(standardfm.COURSES_FILE, this.courses);
+        standardfm.saveStudents(standardfm.STUDENTS_FILE, this.students);
     }
 }
