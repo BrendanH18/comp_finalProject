@@ -32,6 +32,12 @@ public class RegistrationSystem {
                 case "4":
                     this.dropStudentMenu(input);
                     break;
+                case "5":
+                    this.scheduleStudentMenu(input);
+                    break;
+                case "6":
+                    this.courseRoster(input);
+                    break;
                 case "7":
                     saveData();
                     break;
@@ -110,14 +116,45 @@ public class RegistrationSystem {
         }
     }
 
-    /*public void scheduleStudentMenu(Scanner input){
+    public void scheduleStudentMenu(Scanner input){
         String id;
 
         System.out.println("Please enter the ID of the student you want the schedule for: ");
         id = input.nextLine();
 
-        findStudent(id);
-    }*/
+        try{
+            ArrayList<Course> schedule = findStudent(id).getEnrolledCourses();
+            if (schedule.isEmpty()) {
+            System.out.println("This student isn't enrolled in any courses!.");
+            } else {
+                for (Course course : schedule) {
+                System.out.println(course.toString());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Student does not exist");
+        }
+    }
+
+    public void courseRoster(Scanner input){
+        String code;
+
+        System.out.println("Please enter the code of the course you want the students roster for: ");
+        code = input.nextLine();
+
+        try{
+            ArrayList<StudentIFace> roster = findCourse(code).getEnrolledStudents();
+            if (roster.isEmpty()) {
+                System.out.println("There isn't any students enrolled in this course.");
+            } else {
+                for (StudentIFace student : roster) {
+                    System.out.println(student.toString());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Course does not exist");
+        }
+    }
 
     private void menu(){
         System.out.println("1. Add Student");
@@ -182,6 +219,14 @@ public class RegistrationSystem {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public void loadData() {
+        FileManager standardfm = new FileManager("data");
+        standardfm.COURSES_FILE = "courses.csv";
+        standardfm.STUDENTS_FILE = "students.csv";
+        this.courses = standardfm.loadCourses(standardfm.COURSES_FILE);
+        this.students = standardfm.loadStudents(standardfm.STUDENTS_FILE);
     }
 
     public void saveData(){
