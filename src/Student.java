@@ -28,12 +28,22 @@ public class Student implements StudentIFace{
 
     @Override
     public boolean addCourse(String code) {
-        return false;
+       for(Course course:this.enrolledCourses){
+           if(course.getCode().equals(code)){
+               return false;
+           }
+       }
+       return true;
     }
 
     @Override
     public boolean dropCourse(String code) {
-        return false;
+        for(Course course:this.enrolledCourses){
+            if(course.getCode().equals(code)){
+                this.enrolledCourses.remove(course);
+                return true;
+            }
+        } return  false;
     }
 
 

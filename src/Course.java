@@ -30,7 +30,7 @@ public class Course {
         return this.enrolledStudents;
     }
 
-    public boolean idFull(){
+    public boolean isFull(){
         if (this.maxCapacity > this.enrolledStudents.size()){
             return false;
         }
@@ -40,7 +40,7 @@ public class Course {
     }
 
     public boolean addStudent(String id, RegistrationSystem system){
-        if (this.idFull()){
+        if (this.isFull()){
             return false;
         }
 
@@ -56,7 +56,15 @@ public class Course {
     }
 
     public boolean removeStudent(String id, RegistrationSystem system){
+        try{
+            StudentIFace studentRemove = system.findStudent(id);
 
+            this.enrolledStudents.remove(studentRemove);
+
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 
     public String toString(){
