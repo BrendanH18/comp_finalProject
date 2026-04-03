@@ -26,6 +26,24 @@ public class Student implements StudentIFace{
         return this.enrolledCourses;
     }
 
+    @Override
+    public boolean addCourse(String code) {
+        if (this.enrolledCourses.contains(code)) {
+            return false;
+        } else {
+            this.enrolledCourses.add(code);
+            return true;
+        }
+    }
+
+    public boolean dropCourse(String code) {
+        if (this.enrolledCourses.contains(code)) {
+            this.enrolledCourses.remove(code);
+            return true;
+        } else  {
+            return false;
+        }
+    }
 
     public String toString(){
         return this.id + "::" + this.name;

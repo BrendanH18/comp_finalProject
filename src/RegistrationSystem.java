@@ -64,6 +64,48 @@ public class RegistrationSystem {
         this.courses.add(newCourse);
     }
 
+
+    public StudentIFace findStudent(String id) throws Exception {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId().equals(id)) {
+                return students.get(i);
+            }
+        }
+        throw new Exception("Could not find student " + id);
+    }
+
+
+    public Course findCourse(String code) throws Exception {
+        for (int i = 0; i < courses.size(); i++) {
+            if (courses.get(i).getCode().equals(code)) {
+                return courses.get(i);
+            }
+        }
+        throw new Exception("Could not find course " + code);
+    }
+
+
+    public void registerStudent(String id, String code) throws Exception {
+        StudentIFace student = findStudent(id);
+        Course course = findCourse(code);
+
+        course.addStudent(id, this);
+        student.addCourse(code);
+    }
+
+
+    public void dropStudent(String id, String code) throws Exception {
+        StudentIFace student = findStudent(id);
+        Course course = findCourse(code);
+
+        course.removeStudent(id, this);
+        student.dropCourse(code);
+    }
+
+    public void saveData(){
+        FileManager.save(students, courses);
+    }
+
     private void menu(){
         System.out.println("1. Add Student");
         System.out.println("2. Add Course");
