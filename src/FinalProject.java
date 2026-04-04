@@ -5,7 +5,7 @@ public class FinalProject {
         normal.run();
 
 
-        Student newStudent = new Student("12345", "Brendan");
+        /*Student newStudent = new Student("12345", "Brendan");
 
         System.out.println("New Student: " + newStudent.toString());
 
@@ -15,6 +15,6 @@ public class FinalProject {
 
         Course newCourse = new Course("9238", "Intellji", 25);
 
-        System.out.println("New Course: " + newCourse.toString());
+        System.out.println("New Course: " + newCourse.toString());*/
     }
 }

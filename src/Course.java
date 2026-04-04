@@ -30,18 +30,6 @@ public class Course {
         return this.enrolledStudents;
     }
 
-    public boolean idFull(){
-        return this.enrolledStudents.size() >= this.maxCapacity;
-    }
-
-    public boolean addStudent(String id, RegistrationSystem system){
-
-    }
-
-    public boolean removeStudent(String id, RegistrationSystem system){
-
-    }
-
     public String toString(){
         return (this.code + this.maxCapacity) + "//" + title;
     }
