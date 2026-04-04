@@ -30,6 +30,32 @@ public class Course {
         return this.enrolledStudents;
     }
 
+    public boolean isFull() {
+        if (this.enrolledStudents.size() >= this.maxCapacity) {
+            return true;
+        } else  {
+            return false;
+        }
+    }
+
+    public boolean addStudent(String id, RegistrationSystem system) throws Exception {
+        if (this.enrolledStudents.contains(id)) {
+            return false;
+        } else {
+            this.enrolledStudents.add(system.findStudent(id));
+            return true;
+        }
+    }
+
+    public boolean removeStudent(String id, RegistrationSystem system) throws Exception {
+        if (this.enrolledStudents.contains(id)) {
+            this.enrolledStudents.remove(system.findStudent(id));
+            return true;
+        } else  {
+            return false;
+        }
+    }
+
     public String toString(){
         return (this.code + this.maxCapacity) + "//" + title;
     }
