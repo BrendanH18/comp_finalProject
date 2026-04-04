@@ -89,42 +89,16 @@ public class RegistrationSystem {
                 return this.courses.get(i);
             }
         }
+
         throw new Exception("Could not find course with that code: " + code);
     }
 
-    private boolean registerStudent(String id, String code){
-        try {
-            StudentIFace student = findStudent(id);
-
-            Course course = findCourse(code);
-
-            if (course.isFull()) {
-                return false;
-            }
-
-            boolean addedToCourse = course.addStudent(id, this);
-            if (addedToCourse) {
-                student.addCourse(code);
-            }
-            return addedToCourse;
-        } catch (Exception e){
-            return false;
-        }
+    private boolean registerStudent(String id, String code) throws Exception {
+        if (findStudent(id) )
     }
 
     private boolean dropStudent(String id, String code){
-        try {
-            StudentIFace student = findStudent(id);
-            Course course = findCourse(code);
 
-            boolean removedFromCourse = course.addStudent(id, this);
-            if (removedFromCourse) {
-                student.addCourse(code);
-            }
-            return removedFromCourse;
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     public void saveData(){

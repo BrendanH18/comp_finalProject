@@ -56,7 +56,7 @@ public class FileManager {
     }
 
     public boolean saveStudents(String file, ArrayList<StudentIFace> students){
-        return  false;
+
     }
 
 }
