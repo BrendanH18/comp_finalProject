@@ -10,12 +10,12 @@ public class FileManager {
         this.dir = dir;
     }
 
-    public ArrayList<Course> loadCourses(String file) {
+    public ArrayList<Course> loadCourses(String file){
         return new ArrayList<>();
     }
 
 
-    public ArrayList<StudentIFace> loadStudents(String file) {
+    public ArrayList<StudentIFace> loadStudents(String file){
         return new ArrayList<>();
     }
 
