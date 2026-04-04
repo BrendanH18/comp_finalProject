@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class Student implements StudentIFace{
     private String id;
     private String name;
-    private ArrayList<Course> enrolledCourses;
+    private ArrayList<String> enrolledCourses;
 
     public Student(String id,String name){
         this.id=id;
         this.name=name;
-        this.enrolledCourses = new ArrayList<Course>();
+        this.enrolledCourses = new ArrayList<String>();
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Student implements StudentIFace{
     }
 
     @Override
-    public ArrayList<Course> getEnrolledCourses() {
+    public ArrayList<String> getEnrolledCourses() {
         return this.enrolledCourses;
     }
 

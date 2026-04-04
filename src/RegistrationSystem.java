@@ -4,10 +4,15 @@ import java.util.Scanner;
 public class RegistrationSystem {
     private ArrayList<StudentIFace> students;
     private ArrayList<Course> courses;
+    private FileManager fileManager;
 
     public RegistrationSystem(){
         this.students = new ArrayList<StudentIFace>();
         this.courses = new ArrayList<Course>();
+        this.fileManager = new FileManager("data");
+        this.students = fileManager.loadStudents(fileManager.STUDENTS_FILE);
+        this.courses = fileManager.loadCourses(fileManager.COURSES_FILE);
+
     }
 
     public void run(){
@@ -26,9 +31,26 @@ public class RegistrationSystem {
                 case "2":
                     this.addCourse(input);
                     break;
+                case "3":
+                    this.registerStudentMenu(input);
+                    break;
+                case "4":
+                    this.dropStudentMenu(input);
+                    break;
+                case "5":
+                    this.studentScheduleMenu(input);
+                    break;
+                case "6":
+                    this.courseRosterMenu(input);
+                    break;
+                case "7":
+                    saveData();
+                    break;
             }
         }
     }
+
+
 
     public void addStudent(Scanner add){
         String newName;
@@ -64,6 +86,53 @@ public class RegistrationSystem {
         this.courses.add(newCourse);
     }
 
+    public void registerStudentMenu(Scanner input) {
+        System.out.println("Please enter the student's ID: ");
+        String id = input.nextLine();
+        System.out.println("Please enter the course code: ");
+        String code = input.nextLine();
+        try {
+            this.registerStudent(id, code);
+            System.out.println("Student registered successfully!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void dropStudentMenu(Scanner input) {
+        System.out.println("Please enter the student's ID: ");
+        String id = input.nextLine();
+        System.out.println("Please enter the course code: ");
+        String code = input.nextLine();
+        try {
+            this.dropStudent(id, code);
+            System.out.println("Student dropped successfully!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void studentScheduleMenu(Scanner input) {
+        System.out.println("Please enter the student's ID: ");
+        String id = input.nextLine();
+        try{
+            StudentIFace student = this.findStudent(id);
+            System.out.println(student.getEnrolledCourses());
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void courseRosterMenu(Scanner input) {
+        System.out.println("Please enter the course code: ");
+        String code = input.nextLine();
+        try{
+            Course course = this.findCourse(code);
+            System.out.println(course.getEnrolledStudents());
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     public StudentIFace findStudent(String id) throws Exception {
         for (int i = 0; i < students.size(); i++) {
@@ -91,6 +160,7 @@ public class RegistrationSystem {
 
         course.addStudent(id, this);
         student.addCourse(code);
+        saveData();
     }
 
 
@@ -100,10 +170,12 @@ public class RegistrationSystem {
 
         course.removeStudent(id, this);
         student.dropCourse(code);
+        saveData();
     }
 
     public void saveData(){
-        FileManager.save(students, courses);
+        fileManager.saveStudents(students, fileManager.STUDENTS_FILE);
+        fileManager.saveCourses(courses,  fileManager.COURSES_FILE);
     }
 
     private void menu(){
