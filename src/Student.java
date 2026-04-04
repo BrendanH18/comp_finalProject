@@ -5,7 +5,7 @@ public class Student implements StudentIFace{
     private String name;
     private ArrayList<String> enrolledCourses;
 
-    public Student(String id,String name){
+    public Student(String name,String id){
         this.id=id;
         this.name=name;
         this.enrolledCourses = new ArrayList<String>();

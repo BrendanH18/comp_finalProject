@@ -65,6 +65,7 @@ public class RegistrationSystem {
         Student newStudent = new Student(newID, newName);
 
         this.students.add(newStudent);
+        saveData();
     }
 
     public void addCourse(Scanner add){
@@ -84,6 +85,7 @@ public class RegistrationSystem {
         Course newCourse = new Course(newCode, newName, Integer.parseInt(newMax));
 
         this.courses.add(newCourse);
+        saveData();
     }
 
     public void registerStudentMenu(Scanner input) {

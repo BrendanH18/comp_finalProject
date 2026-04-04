@@ -52,7 +52,7 @@ public class FileManager {
 
                String[] nextLinePieces = nextCSVLine.split(",");
 
-               Student nextStudent = new Student(nextLinePieces[1], nextLinePieces[0]);
+               Student nextStudent = new Student(nextLinePieces[0], nextLinePieces[1]);
 
                resultList.add(nextStudent);
            }
@@ -73,7 +73,7 @@ public class FileManager {
 
            for (int i = 0; i < courses.size(); i++) {
                Course newCourse = courses.get(i);
-               out.println(newCourse.toString());
+               out.println(newCourse.getCode() + "," + newCourse.getTitle() + "," + newCourse.getMaxCapacity());
            }
            out.close();
            return true;
@@ -91,7 +91,7 @@ public class FileManager {
 
             for (int i = 0; i < students.size(); i++) {
                 StudentIFace newStudent = students.get(i);
-                out.println(newStudent.toString());
+                out.println(newStudent.getId() + "," + newStudent.getName());
             }
             out.close();
             return true;
