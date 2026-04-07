@@ -28,7 +28,7 @@ public class FileManager {
 
                Course course = new Course(nextLinePieces[1], nextLinePieces[0], Integer.parseInt(nextLinePieces[2]));
 
-               resultList.add(course);
+               resultList.add(course);       
            }
 
            return resultList;
