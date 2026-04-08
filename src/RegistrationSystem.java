@@ -1,3 +1,6 @@
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,43 +8,52 @@ public class RegistrationSystem {
     private ArrayList<StudentIFace> students;
     private ArrayList<Course> courses;
     private FileManager fileManager;
+    private InputStream userInput;
+    private OutputStream userOutput;
+    private PrintWriter writer;
+    private Scanner scanner;
 
-    public RegistrationSystem(){
+    public RegistrationSystem(InputStream in, OutputStream out){
         this.students = new ArrayList<StudentIFace>();
         this.courses = new ArrayList<Course>();
         this.fileManager = new FileManager("data");
         this.students = fileManager.loadStudents(fileManager.STUDENTS_FILE);
         this.courses = fileManager.loadCourses(fileManager.COURSES_FILE);
+        this.userInput = in;
+        this.userOutput = out;
+        this.writer = new PrintWriter(out, true);
+        this.scanner = new Scanner(in);
+    }
 
+    public RegistrationSystem() {
+        this(System.in, System.out);
     }
 
     public void run(){
-        Scanner input = new Scanner(System.in);
-
         String userSelect = "";
 
         while (! userSelect.equals("7")){
             menu();
-            userSelect = input.nextLine();
+            userSelect = scanner.nextLine();
 
             switch (userSelect){
                 case "1":
-                    this.addStudent(input);
+                    this.addStudent();
                     break;
                 case "2":
-                    this.addCourse(input);
+                    this.addCourse();
                     break;
                 case "3":
-                    this.registerStudentMenu(input);
+                    this.registerStudentMenu();
                     break;
                 case "4":
-                    this.dropStudentMenu(input);
+                    this.dropStudentMenu();
                     break;
                 case "5":
-                    this.studentScheduleMenu(input);
+                    this.studentScheduleMenu();
                     break;
                 case "6":
-                    this.courseRosterMenu(input);
+                    this.courseRosterMenu();
                     break;
                 case "7":
                     saveData();
@@ -50,37 +62,54 @@ public class RegistrationSystem {
         }
     }
 
+    public boolean setInputStream(InputStream in){
+        if (in == null) {
+            return false;
+        }
+        this.userInput = in;
+        return true;
+    }
+
+    public boolean setOutputStream(OutputStream out){
+        if (out == null){
+            return false;
+        }
+        this.userOutput = out;
+        this.writer = new PrintWriter(out, true);
+        return true;
+    }
 
 
-    public void addStudent(Scanner add){
+
+    public void addStudent(){
         String newName;
         String newID;
 
-        System.out.println("Please enter the name of the student you want to add: ");
-        newName = add.nextLine();
+        writer.println("Please enter the name of the student you want to add: ");
+        newName = scanner.nextLine();
 
-        System.out.println("Please enter the ID of the student you want to add: ");
-        newID = add.nextLine();
+        writer.println("Please enter the ID of the student you want to add: ");
+        newID = scanner.nextLine();
 
-        Student newStudent = new Student(newID, newName);
+        Student newStudent = new Student(newName, newID);
 
         this.students.add(newStudent);
         saveData();
     }
 
-    public void addCourse(Scanner add){
+    public void addCourse(){
         String newName;
         String newCode;
         String newMax;
 
-        System.out.println("Please enter the name of the course you want to add: ");
-        newName = add.nextLine();
+        writer.println("Please enter the name of the course you want to add: ");
+        newName = scanner.nextLine();
 
-        System.out.println("Please enter the code of the course you want to add: ");
-        newCode = add.nextLine();
+        writer.println("Please enter the code of the course you want to add: ");
+        newCode = scanner.nextLine();
 
-        System.out.println("Please enter the maximum number of students for the course: ");
-        newMax = add.nextLine();
+        writer.println("Please enter the maximum number of students for the course: ");
+        newMax = scanner.nextLine();
 
         Course newCourse = new Course(newCode, newName, Integer.parseInt(newMax));
 
@@ -88,51 +117,51 @@ public class RegistrationSystem {
         saveData();
     }
 
-    public void registerStudentMenu(Scanner input) {
-        System.out.println("Please enter the student's ID: ");
-        String id = input.nextLine();
-        System.out.println("Please enter the course code: ");
-        String code = input.nextLine();
+    public void registerStudentMenu() {
+        writer.println("Please enter the student's ID: ");
+        String id = scanner.nextLine();
+        writer.println("Please enter the course code: ");
+        String code = scanner.nextLine();
         try {
             this.registerStudent(id, code);
-            System.out.println("Student registered successfully!");
+            writer.println("Student registered successfully!");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            writer.println(e.getMessage());
         }
     }
 
-    public void dropStudentMenu(Scanner input) {
-        System.out.println("Please enter the student's ID: ");
-        String id = input.nextLine();
-        System.out.println("Please enter the course code: ");
-        String code = input.nextLine();
+    public void dropStudentMenu() {
+        writer.println("Please enter the student's ID: ");
+        String id = scanner.nextLine();
+        writer.println("Please enter the course code: ");
+        String code = scanner.nextLine();
         try {
             this.dropStudent(id, code);
-            System.out.println("Student dropped successfully!");
+            writer.println("Student dropped successfully!");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            writer.println(e.getMessage());
         }
     }
 
-    public void studentScheduleMenu(Scanner input) {
-        System.out.println("Please enter the student's ID: ");
-        String id = input.nextLine();
+    public void studentScheduleMenu() {
+        writer.println("Please enter the student's ID: ");
+        String id = scanner.nextLine();
         try{
             StudentIFace student = this.findStudent(id);
-            System.out.println(student.getEnrolledCourses());
+            writer.println(student.getEnrolledCourses());
         } catch(Exception e){
-            System.out.println(e.getMessage());
+            writer.println(e.getMessage());
         }
     }
 
-    public void courseRosterMenu(Scanner input) {
-        System.out.println("Please enter the course code: ");
-        String code = input.nextLine();
+    public void courseRosterMenu() {
+        writer.println("Please enter the course code: ");
+        String code = scanner.nextLine();
         try{
             Course course = this.findCourse(code);
-            System.out.println(course.getEnrolledStudents());
+            writer.println(course.getEnrolledStudents());
         } catch(Exception e){
-            System.out.println(e.getMessage());
+            writer.println(e.getMessage());
         }
     }
 
@@ -156,7 +185,7 @@ public class RegistrationSystem {
     }
 
 
-    public void registerStudent(String id, String code) throws Exception {
+    private void registerStudent(String id, String code) throws Exception {
         StudentIFace student = findStudent(id);
         Course course = findCourse(code);
 
@@ -166,7 +195,7 @@ public class RegistrationSystem {
     }
 
 
-    public void dropStudent(String id, String code) throws Exception {
+    private void dropStudent(String id, String code) throws Exception {
         StudentIFace student = findStudent(id);
         Course course = findCourse(code);
 
@@ -181,12 +210,12 @@ public class RegistrationSystem {
     }
 
     private void menu(){
-        System.out.println("1. Add Student");
-        System.out.println("2. Add Course");
-        System.out.println("3. Register Student in a Course");
-        System.out.println("4. Drop Student from a Course");
-        System.out.println("5. View Student Schedule");
-        System.out.println("6. View Course Roster");
-        System.out.println("7. Save and Exit");
+        writer.println("1. Add Student");
+        writer.println("2. Add Course");
+        writer.println("3. Register Student in a Course");
+        writer.println("4. Drop Student from a Course");
+        writer.println("5. View Student Schedule");
+        writer.println("6. View Course Roster");
+        writer.println("7. Save and Exit");
     }
 }

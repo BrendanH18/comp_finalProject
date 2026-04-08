@@ -39,7 +39,8 @@ public class Course {
     }
 
     public boolean addStudent(String id, RegistrationSystem system) throws Exception {
-        if (this.enrolledStudents.contains(id)) {
+        StudentIFace student = system.findStudent(id);
+        if (this.enrolledStudents.contains(student)) {
             return false;
         } else {
             this.enrolledStudents.add(system.findStudent(id));
@@ -48,7 +49,8 @@ public class Course {
     }
 
     public boolean removeStudent(String id, RegistrationSystem system) throws Exception {
-        if (this.enrolledStudents.contains(id)) {
+        StudentIFace student = system.findStudent(id);
+        if (this.enrolledStudents.contains(student)) {
             this.enrolledStudents.remove(system.findStudent(id));
             return true;
         } else  {

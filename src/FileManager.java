@@ -26,7 +26,7 @@ public class FileManager {
 
                String[] nextLinePieces = nextCSVLine.split(",");
 
-               Course course = new Course(nextLinePieces[1], nextLinePieces[0], Integer.parseInt(nextLinePieces[2]));
+               Course course = new Course(nextLinePieces[0], nextLinePieces[1], Integer.parseInt(nextLinePieces[2]));
 
                resultList.add(course);       
            }
@@ -52,7 +52,7 @@ public class FileManager {
 
                String[] nextLinePieces = nextCSVLine.split(",");
 
-               Student nextStudent = new Student(nextLinePieces[0], nextLinePieces[1]);
+               Student nextStudent = new Student(nextLinePieces[1], nextLinePieces[0]);
 
                resultList.add(nextStudent);
            }
