@@ -189,6 +189,10 @@ public class RegistrationSystem {
         StudentIFace student = findStudent(id);
         Course course = findCourse(code);
 
+        if (course.isFull()) {
+            throw new Exception("Course is already full");
+        }
+
         course.addStudent(id, this);
         student.addCourse(code);
         saveData();
